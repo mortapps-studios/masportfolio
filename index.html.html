@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | MortApps Studios</title>
+    
+    <!-- Elite Design System -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* RESET & BASE */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-black: #000000;
+            --deep-space: #0A0A0F;
+            --void: #050505;
+            --starlight: #E8E8E8;
+            --nebula: #8A8A9D;
+            --quantum-blue: #00D4FF;
+            --pulse: #FF0080;
+            --singularity: #9D4EDD;
+            --event-horizon: #2A2A3C;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--void);
+            color: var(--starlight);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* LOADING SEQUENCE - ARCHITECTURAL */
+        .loading-sequence {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--deep-space);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .sequence-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .grid-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(to right, rgba(0, 212, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridDrift 20s linear infinite;
+        }
+
+        @keyframes gridDrift {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(60px, 60px); }
+        }
+
+        .quantum-loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+        }
+
+        .quantum-sphere {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, 
+                rgba(0, 212, 255, 0.2) 0%,
+                rgba(0, 212, 255, 0.1) 20%,
+                transparent 70%);
+            animation: quantumSpin 8s linear infinite;
+        }
+
+        @keyframes quantumSpin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .data-stream {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .stream-line {
+            font-size: 1.2rem;
+            color: var(--quantum-blue);
+            margin: 10px 0;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: streamFlow 2.5s ease-in-out forwards;
+        }
+
+        .stream-line:nth-child(1) { animation-delay: 0.3s; }
+        .stream-line:nth-child(2) { animation-delay: 0.6s; }
+        .stream-line:nth-child(3) { animation-delay: 0.9s; }
+        .stream-line:nth-child(4) { animation-delay: 1.2s; }
+
+        @keyframes streamFlow {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+                filter: blur(10px);
+            }
+            20% {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+            80% {
+                opacity: 1;
+                transform: translateY(0);
+                filter: blur(0);
+            }
+            100% {
+                opacity: 0;
+                transform: translateY(-20px);
+                filter: blur(10px);
+            }
+        }
+
+        .portfolio-title {
+            font-size: 4rem;
+            font-weight: 300;
+            letter-spacing: 10px;
+            margin-top: 40px;
+            color: transparent;
+            background: linear-gradient(90deg, 
+                var(--quantum-blue) 0%,
+                var(--singularity) 50%,
+                var(--pulse) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            animation: titleReveal 3s ease-out 1.5s forwards;
+            opacity: 0;
+        }
+
+        @keyframes titleReveal {
+            0% {
+                opacity: 0;
+                letter-spacing: 20px;
+                filter: blur(10px);
+            }
+            100% {
+                opacity: 1;
+                letter-spacing: 10px;
+                filter: blur(0);
+            }
+        }
+
+        /* MAIN LAYOUT */
+        .main-container {
+            display: none;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .main-container.loaded {
+            display: block;
+            opacity: 1;
+        }
+
+        /* ARCHITECTURAL NAVIGATION */
+        .nav-architecture {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem 3rem;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .brand-mark {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--quantum-blue), var(--singularity));
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .brand-mark::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            background: var(--void);
+            border-radius: 4px;
+        }
+
+        .brand-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .brand-text .portfolio {
+            color: var(--nebula);
+            font-size: 0.9rem;
+            display: block;
+            margin-top: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 3rem;
+            list-style: none;
+        }
+
+        .nav-link {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 300;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            color: var(--nebula);
+            text-decoration: none;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: linear-gradient(90deg, var(--quantum-blue), var(--pulse));
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--starlight);
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* PORTFOLIO HERO */
+        .portfolio-hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8rem 3rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(0, 212, 255, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(157, 78, 221, 0.05) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255, 0, 128, 0.05) 0%, transparent 50%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            text-align: center;
+        }
+
+        .hero-preface {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            color: var(--quantum-blue);
+            margin-bottom: 2rem;
+            text-transform: uppercase;
+        }
+
+        .hero-title {
+            font-size: 5rem;
+            font-weight: 300;
+            line-height: 1.1;
+            margin-bottom: 3rem;
+            background: linear-gradient(135deg, var(--starlight) 30%, var(--nebula) 70%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            font-weight: 300;
+            color: var(--nebula);
+            max-width: 700px;
+            margin: 0 auto 4rem;
+            line-height: 1.8;
+        }
+
+        /* PROJECT GRID - ARCHITECTURAL */
+        .projects-grid {
+            padding: 6rem 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .grid-header {
+            margin-bottom: 4rem;
+            text-align: center;
+        }
+
+        .grid-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 1rem;
+            color: var(--starlight);
+        }
+
+        .grid-subtitle {
+            color: var(--nebula);
+            font-size: 1.1rem;
+            font-weight: 300;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .project-card {
+            background: rgba(10, 10, 15, 0.5);
+            border: 1px solid rgba(42, 42, 60, 0.3);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(0, 212, 255, 0) 0%,
+                rgba(0, 212, 255, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(0, 212, 255, 0.3);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.3),
+                0 0 0 1px rgba(0, 212, 255, 0.1);
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .project-preview {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .project-preview::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, 
+                transparent 0%,
+                rgba(5, 5, 5, 0.1) 30%,
+                rgba(5, 5, 5, 0.3) 70%,
+                rgba(5, 5, 5, 0.7) 100%);
+        }
+
+        .project-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .project-card:hover .project-preview img {
+            transform: scale(1.05);
+        }
+
+        .project-content {
+            padding: 2rem;
+            position: relative;
+        }
+
+        .project-category {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            color: var(--quantum-blue);
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .project-title {
+            font-size: 1.8rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            color: var(--starlight);
+        }
+
+        .project-description {
+            font-size: 0.95rem;
+            color: var(--nebula);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            font-size: 0.75rem;
+            padding: 0.3rem 0.8rem;
+            background: rgba(42, 42, 60, 0.3);
+            border-radius: 20px;
+            color: var(--nebula);
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-link {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1.5rem;
+            background: rgba(42, 42, 60, 0.5);
+            border: 1px solid rgba(42, 42, 60, 0.5);
+            border-radius: 8px;
+            color: var(--starlight);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            background: rgba(0, 212, 255, 0.1);
+            border-color: var(--quantum-blue);
+            transform: translateY(-2px);
+        }
+
+        /* REAL ESTATE FOCUS */
+        .real-estate-focus {
+            padding: 8rem 3rem;
+            background: rgba(5, 5, 5, 0.8);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .focus-backdrop {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 70% 30%, rgba(157, 78, 221, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, rgba(5, 5, 5, 0.9) 0%, rgba(10, 10, 15, 0.8) 100%);
+        }
+
+        .focus-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .focus-badge {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: rgba(0, 212, 255, 0.1);
+            border: 1px solid rgba(0, 212, 255, 0.2);
+            border-radius: 30px;
+            color: var(--quantum-blue);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            margin-bottom: 2rem;
+        }
+
+        .focus-title {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, var(--starlight) 0%, var(--quantum-blue) 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .focus-description {
+            font-size: 1.2rem;
+            color: var(--nebula);
+            max-width: 800px;
+            margin: 0 auto 3rem;
+            line-height: 1.8;
+        }
+
+        .real-estate-projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .real-estate-card {
+            background: rgba(10, 10, 15, 0.7);
+            border: 1px solid rgba(42, 42, 60, 0.3);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .real-estate-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(157, 78, 221, 0.3);
+            box-shadow: 
+                0 20px 40px rgba(0, 0, 0, 0.4),
+                0 0 0 1px rgba(157, 78, 221, 0.1);
+        }
+
+        .real-estate-preview {
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .real-estate-preview img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .real-estate-card:hover .real-estate-preview img {
+            transform: scale(1.05);
+        }
+
+        /* FOOTER ARCHITECTURE */
+        .portfolio-footer {
+            padding: 4rem 3rem;
+            background: var(--deep-space);
+            border-top: 1px solid rgba(42, 42, 60, 0.3);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .footer-text {
+            color: var(--nebula);
+            font-size: 0.9rem;
+        }
+
+        .footer-cta {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--quantum-blue), var(--singularity));
+            border: none;
+            border-radius: 8px;
+            color: var(--void);
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(0, 212, 255, 0.2);
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 1024px) {
+            .hero-title {
+                font-size: 4rem;
+            }
+            
+            .real-estate-projects {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-architecture {
+                padding: 1.5rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .hero-title {
+                font-size: 3rem;
+            }
+            
+            .portfolio-hero,
+            .projects-grid,
+            .real-estate-focus {
+                padding: 6rem 1.5rem;
+            }
+            
+            .grid-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                gap: 2rem;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .focus-title {
+                font-size: 2.5rem;
+            }
+            
+            .portfolio-title {
+                font-size: 2.5rem;
+                letter-spacing: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Architectural Loading Sequence -->
+    <div class="loading-sequence">
+        <div class="sequence-container">
+            <div class="grid-lines"></div>
+            <div class="quantum-loader">
+                <div class="quantum-sphere"></div>
+                <div class="data-stream">
+                    <div class="stream-line">INITIALIZING ARCHIVE</div>
+                    <div class="stream-line">LOADING DIGITAL ARTIFACTS</div>
+                    <div class="stream-line">ESTABLISHING CONNECTION</div>
+                    <div class="stream-line">PORTFOLIO READY</div>
+                </div>
+            </div>
+            <div class="portfolio-title">PORTFOLIO</div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Architectural Navigation -->
+        <nav class="nav-architecture">
+            <div class="nav-brand">
+                <div class="brand-mark"></div>
+                <div class="brand-text">
+                    MortApps Studios
+                    <span class="portfolio">Portfolio</span>
+                </div>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#real-estate" class="nav-link">Real Estate</a></li>
+                <li><a href="https://mortappsstudios.com" class="nav-link">Main Site</a></li>
+                <li><a href="mailto:contact@mortappsstudios.com" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+
+        <!-- Portfolio Hero -->
+        <section class="portfolio-hero">
+            <div class="hero-backdrop"></div>
+            <div class="hero-content">
+                <div class="hero-preface">DIGITAL CRAFTSMANSHIP</div>
+                <h1 class="hero-title">Architectural Web Solutions</h1>
+                <p class="hero-subtitle">
+                    A curated selection of premium web experiences engineered for performance, 
+                    aesthetics, and measurable business impact. Each project represents a unique 
+                    digital solution tailored to specific market demands.
+                </p>
+            </div>
+        </section>
+
+        <!-- Projects Grid -->
+        <section class="projects-grid" id="projects">
+            <div class="grid-header">
+                <h2 class="grid-title">Digital Artifacts</h2>
+                <p class="grid-subtitle">
+                    From conceptualization to deployment, each project embodies the MortApps philosophy: 
+                    precision engineering meets elegant design.
+                </p>
+            </div>
+
+            <div class="grid-container">
+                <!-- Project 1: College Intake System -->
+                <article class="project-card">
+                    <div class="project-preview">
+                        <img src="https://images.pexels.com/photos/9576020/pexels-photo-9576020.jpeg" alt="Education System">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-category">Education Technology</div>
+                        <h3 class="project-title">Prime Intake System</h3>
+                        <p class="project-description">
+                            Comprehensive college management platform with automated admissions, 
+                            student portals, and administrative dashboards. Built for scalability 
+                            and institutional efficiency.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">System Architecture</span>
+                            <span class="tech-tag">Data Management</span>
+                            <span class="tech-tag">User Portals</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="prime.html" class="project-link" target="_blank">
+                                <i class="fas fa-external-link-alt"></i> View Live
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 2: Luxury Fashion -->
+                <article class="project-card">
+                    <div class="project-preview">
+                        <img src="https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Fashion Brand">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-category">Luxury E-commerce</div>
+                        <h3 class="project-title">I-Clad Nairobi</h3>
+                        <p class="project-description">
+                            Premium men's fashion platform combining elegant aesthetics with 
+                            seamless shopping experience. Features custom orders, inventory 
+                            management, and integrated communication channels.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">E-commerce</span>
+                            <span class="tech-tag">Premium Design</span>
+                            <span class="tech-tag">Custom Orders</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="iclad.html" class="project-link" target="_blank">
+                                <i class="fas fa-external-link-alt"></i> View Live
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 3: Wellness Center -->
+                <article class="project-card">
+                    <div class="project-preview">
+                        <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Spa & Wellness">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-category">Wellness Services</div>
+                        <h3 class="project-title">Paris Spa</h3>
+                        <p class="project-description">
+                            Serene digital environment for premium wellness services. 
+                            Features appointment booking, service packages, therapist profiles, 
+                            and wellness content management.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Booking System</span>
+                            <span class="tech-tag">Service Packages</span>
+                            <span class="tech-tag">Content Management</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="Paris.html" class="project-link" target="_blank">
+                                <i class="fas fa-external-link-alt"></i> View Live
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 4: Pest Control -->
+                <article class="project-card">
+                    <div class="project-preview">
+                        <img src="https://images.pexels.com/photos/19789837/pexels-photo-19789837.jpeg" alt="Pest Control">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-category">Commercial Services</div>
+                        <h3 class="project-title">IPME Pest Control</h3>
+                        <p class="project-description">
+                            Professional service platform for commercial and residential 
+                            pest management. Includes service scheduling, treatment plans, 
+                            and client management systems.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Service Platform</span>
+                            <span class="tech-tag">Client Management</span>
+                            <span class="tech-tag">Scheduling</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="ipme.html" class="project-link" target="_blank">
+                                <i class="fas fa-external-link-alt"></i> View Live
+                            </a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- Real Estate Focus -->
+        <section class="real-estate-focus" id="real-estate">
+            <div class="focus-backdrop"></div>
+            <div class="focus-content">
+                <div class="focus-badge">Specialized Expertise</div>
+                <h2 class="focus-title">Real Estate Architecture</h2>
+                <p class="focus-description">
+                    We engineer digital platforms that transform property presentation into 
+                    compelling narratives. Our real estate solutions combine architectural 
+                    precision with immersive experiences to drive engagement and conversions.
+                </p>
+
+                <div class="real-estate-projects">
+                    <!-- Brax Real Estate -->
+                    <article class="real-estate-card">
+                        <div class="real-estate-preview">
+                            <img src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=2073&q=80" alt="Brax Real Estate">
+                        </div>
+                        <div class="project-content">
+                            <div class="project-category">Luxury Properties</div>
+                            <h3 class="project-title">Brax Real Estate</h3>
+                            <p class="project-description">
+                                High-end property platform featuring virtual tours, 
+                                advanced filtering, agent networks, and investment 
+                                analytics. Engineered for premium market positioning.
+                            </p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Virtual Tours</span>
+                                <span class="tech-tag">Property Management</span>
+                                <span class="tech-tag">Investment Analytics</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="brax.html" class="project-link" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> Explore Properties
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Lux Properties -->
+                    <article class="real-estate-card">
+                        <div class="real-estate-preview">
+                            <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?ixlib=rb-4.0.3&auto=format&fit=crop&w=2053&q=80" alt="Lux Properties">
+                        </div>
+                        <div class="project-content">
+                            <div class="project-category">Premium Developments</div>
+                            <h3 class="project-title">Lux Properties</h3>
+                            <p class="project-description">
+                                Exclusive property showcase with development portfolios, 
+                                investment opportunities, and market intelligence. 
+                                Designed for discerning investors and developers.
+                            </p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Development Portfolios</span>
+                                <span class="tech-tag">Market Intelligence</span>
+                                <span class="tech-tag">Investment Platform</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="lux.html" class="project-link" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> View Portfolio
+                                </a>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="portfolio-footer">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <div class="brand-mark"></div>
+                    <div class="brand-text">
+                        MortApps Studios
+                        <span class="portfolio">Portfolio Archive</span>
+                    </div>
+                </div>
+                <a href="https://mortappsstudios.com" class="footer-cta">
+                    Visit Main Site
+                </a>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // Architectural Loading Sequence
+        document.addEventListener('DOMContentLoaded', function() {
+            const loadingSequence = document.querySelector('.loading-sequence');
+            const mainContainer = document.querySelector('.main-container');
+            
+            // Create quantum particles
+            createQuantumParticles();
+            
+            // Sequence completion
+            setTimeout(() => {
+                loadingSequence.style.opacity = '0';
+                loadingSequence.style.pointerEvents = 'none';
+                
+                setTimeout(() => {
+                    loadingSequence.style.display = 'none';
+                    mainContainer.classList.add('loaded');
+                    
+                    // Initialize scroll animations
+                    initializeScrollAnimations();
+                }, 1000);
+            }, 4000);
+        });
+
+        // Quantum Particles Effect
+        function createQuantumParticles() {
+            const container = document.querySelector('.sequence-container');
+            const particleCount = 50;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.style.cssText = `
+                    position: absolute;
+                    width: ${Math.random() * 4 + 1}px;
+                    height: ${Math.random() * 4 + 1}px;
+                    background: ${Math.random() > 0.5 ? 'var(--quantum-blue)' : 'var(--singularity)'};
+                    border-radius: 50%;
+                    opacity: ${Math.random() * 0.3 + 0.1};
+                    top: ${Math.random() * 100}%;
+                    left: ${Math.random() * 100}%;
+                    pointer-events: none;
+                `;
+                
+                container.appendChild(particle);
+                
+                // Animate particle
+                animateParticle(particle);
+            }
+        }
+
+        function animateParticle(particle) {
+            const duration = Math.random() * 20000 + 10000;
+            const xDistance = Math.random() * 200 - 100;
+            const yDistance = Math.random() * 200 - 100;
+            
+            particle.animate([
+                { transform: 'translate(0, 0)', opacity: 0 },
+                { transform: `translate(${xDistance}px, ${yDistance}px)`, opacity: 0.5 },
+                { transform: `translate(${xDistance * 2}px, ${yDistance * 2}px)`, opacity: 0 }
+            ], {
+                duration: duration,
+                iterations: Infinity,
+                easing: 'cubic-bezier(0.4, 0, 0.2, 1)'
+            });
+        }
+
+        // Scroll Animations
+        function initializeScrollAnimations() {
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, observerOptions);
+
+            // Observe project cards
+            document.querySelectorAll('.project-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        }
+
+        // Smooth navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
