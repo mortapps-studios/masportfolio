@@ -29,6 +29,7 @@
             --pulse: #FF0080;
             --singularity: #9D4EDD;
             --event-horizon: #2A2A3C;
+            --premium-gold: #D4AF37;
         }
 
         html {
@@ -186,6 +187,165 @@
             }
         }
 
+        /* PREMIUM MODAL */
+        .premium-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(20px);
+            z-index: 9998;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            padding: 20px;
+        }
+
+        .premium-modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .premium-modal {
+            background: var(--deep-space);
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            border-radius: 20px;
+            width: 100%;
+            max-width: 500px;
+            overflow: hidden;
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.5),
+                0 0 0 1px rgba(212, 175, 55, 0.1);
+            transform: translateY(30px);
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .premium-modal-overlay.active .premium-modal {
+            transform: translateY(0);
+        }
+
+        .modal-header {
+            padding: 2rem 2rem 1.5rem;
+            background: linear-gradient(135deg, 
+                rgba(212, 175, 55, 0.1) 0%,
+                rgba(10, 10, 15, 0.8) 100%);
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+            text-align: center;
+        }
+
+        .modal-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--premium-gold), #E6C158);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            color: var(--void);
+            font-size: 1.5rem;
+        }
+
+        .modal-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: var(--starlight);
+            margin-bottom: 0.5rem;
+        }
+
+        .modal-subtitle {
+            color: var(--nebula);
+            font-size: 1rem;
+        }
+
+        .modal-body {
+            padding: 2rem;
+        }
+
+        .modal-message {
+            color: var(--starlight);
+            text-align: center;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .modal-message strong {
+            color: var(--premium-gold);
+            font-weight: 500;
+        }
+
+        .modal-features {
+            background: rgba(42, 42, 60, 0.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+            color: var(--nebula);
+            font-size: 0.9rem;
+        }
+
+        .feature-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .feature-icon {
+            color: var(--premium-gold);
+        }
+
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 1rem;
+            border-radius: 10px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 500;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .modal-btn-register {
+            background: linear-gradient(135deg, var(--premium-gold), #E6C158);
+            color: var(--void);
+            border: none;
+        }
+
+        .modal-btn-register:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .modal-btn-close {
+            background: transparent;
+            color: var(--nebula);
+            border: 1px solid rgba(42, 42, 60, 0.5);
+        }
+
+        .modal-btn-close:hover {
+            background: rgba(42, 42, 60, 0.3);
+            color: var(--starlight);
+        }
+
         /* MAIN LAYOUT */
         .main-container {
             display: none;
@@ -271,6 +431,7 @@
             position: relative;
             padding: 0.5rem 0;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .nav-link::after {
@@ -347,9 +508,26 @@
             font-size: 1.2rem;
             font-weight: 300;
             color: var(--nebula);
-            max-width: 700px;
+            max-width: 800px;
             margin: 0 auto 4rem;
             line-height: 1.8;
+        }
+
+        .hero-note {
+            font-size: 0.9rem;
+            color: var(--nebula);
+            font-style: italic;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(42, 42, 60, 0.3);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-note strong {
+            color: var(--premium-gold);
+            font-weight: 500;
         }
 
         /* PROJECT GRID - ARCHITECTURAL */
@@ -376,7 +554,7 @@
             color: var(--nebula);
             font-size: 1.1rem;
             font-weight: 300;
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
         }
 
@@ -658,6 +836,7 @@
             letter-spacing: 1px;
             text-decoration: none;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .footer-cta:hover {
@@ -704,6 +883,14 @@
                 gap: 2rem;
                 text-align: center;
             }
+            
+            .modal-actions {
+                flex-direction: column;
+            }
+            
+            .modal-btn {
+                width: 100%;
+            }
         }
 
         @media (max-width: 480px) {
@@ -719,10 +906,59 @@
                 font-size: 2.5rem;
                 letter-spacing: 5px;
             }
+            
+            .premium-modal {
+                margin: 20px;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- Premium Registration Modal -->
+    <div class="premium-modal-overlay" id="premiumModal">
+        <div class="premium-modal">
+            <div class="modal-header">
+                <div class="modal-icon">
+                    <i class="fas fa-crown"></i>
+                </div>
+                <h2 class="modal-title">Premium Access Required</h2>
+                <p class="modal-subtitle">MortApps Studios Membership Portal</p>
+            </div>
+            <div class="modal-body">
+                <p class="modal-message">
+                    <strong>Access to the MortApps Studios main site is restricted to registered members.</strong><br><br>
+                    The complete suite of services, tools, and resources is available exclusively to our premium network of partners and clients.
+                </p>
+                
+                <div class="modal-features">
+                    <div class="feature-item">
+                        <i class="fas fa-star feature-icon"></i>
+                        <span>Access to premium development tools</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-lock feature-icon"></i>
+                        <span>Exclusive client resources and templates</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-users feature-icon"></i>
+                        <span>Direct communication with our development team</span>
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button class="modal-btn modal-btn-register" id="registerBtn">
+                        <i class="fas fa-user-plus"></i>
+                        Register for Membership
+                    </button>
+                    <button class="modal-btn modal-btn-close" id="closeModalBtn">
+                        <i class="fas fa-times"></i>
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Architectural Loading Sequence -->
     <div class="loading-sequence">
         <div class="sequence-container">
@@ -754,7 +990,7 @@
             <ul class="nav-links">
                 <li><a href="#projects" class="nav-link">Projects</a></li>
                 <li><a href="#real-estate" class="nav-link">Real Estate</a></li>
-                <li><a href="https://mortappsstudios.com" class="nav-link">Main Site</a></li>
+                <li><a class="nav-link" id="mainSiteLink">Main Site</a></li>
                 <li><a href="mailto:contact@mortappsstudios.com" class="nav-link">Contact</a></li>
             </ul>
         </nav>
@@ -770,6 +1006,12 @@
                     aesthetics, and measurable business impact. Each project represents a unique 
                     digital solution tailored to specific market demands.
                 </p>
+                <p class="hero-note">
+                    <strong>Note:</strong> This portfolio represents a selection of demonstration projects. 
+                    We have engineered numerous additional web platforms and applications across various 
+                    industries including finance, healthcare, logistics, and enterprise solutions. 
+                    Contact us to discuss our complete portfolio of work.
+                </p>
             </div>
         </section>
 
@@ -779,7 +1021,7 @@
                 <h2 class="grid-title">Digital Artifacts</h2>
                 <p class="grid-subtitle">
                     From conceptualization to deployment, each project embodies the MortApps philosophy: 
-                    precision engineering meets elegant design.
+                    precision engineering meets elegant design. <strong>Selected demonstration projects shown.</strong>
                 </p>
             </div>
 
@@ -836,7 +1078,33 @@
                     </div>
                 </article>
 
-                <!-- Project 3: Wellness Center -->
+                <!-- Project 3: Baba Bima Insurance -->
+                <article class="project-card">
+                    <div class="project-preview">
+                        <img src="https://www.betlinkinsurance.co.ke/images/productimages//1980.png" alt="Insurance Platform">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-category">Insurance Services</div>
+                        <h3 class="project-title">Baba Bima Insurance</h3>
+                        <p class="project-description">
+                            Comprehensive insurance platform featuring whole life insurance, 
+                            policy management, premium analyzers, and agent networks. 
+                            Built for the Kenyan insurance market.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Insurance Technology</span>
+                            <span class="tech-tag">Financial Services</span>
+                            <span class="tech-tag">Policy Management</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://www.bababima.co.ke" class="project-link" target="_blank">
+                                <i class="fas fa-external-link-alt"></i> View Live
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 4: Wellness Center -->
                 <article class="project-card">
                     <div class="project-preview">
                         <img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80" alt="Spa & Wellness">
@@ -862,7 +1130,7 @@
                     </div>
                 </article>
 
-                <!-- Project 4: Pest Control -->
+                <!-- Project 5: Pest Control -->
                 <article class="project-card">
                     <div class="project-preview">
                         <img src="https://images.pexels.com/photos/19789837/pexels-photo-19789837.jpeg" alt="Pest Control">
@@ -882,6 +1150,31 @@
                         </div>
                         <div class="project-links">
                             <a href="ipme.html" class="project-link" target="_blank">
+                                <i class="fas fa-external-link-alt"></i> View Live
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Project 6: Bakery -->
+                <article class="project-card">
+                    <div class="project-preview">
+                        <img src="https://babycakesmadebysarah.com/cdn/shop/files/IMG-0841.jpg?v=1742337807" alt="Bakery">
+                    </div>
+                    <div class="project-content">
+                        <div class="project-category">Food & Beverage</div>
+                        <h3 class="project-title">Vintage Cakes</h3>
+                        <p class="project-description">
+                            Artisanal bakery platform with online ordering, custom cake design, 
+                            delivery scheduling, and inventory management for premium baked goods.
+                        </p>
+                        <div class="project-tech">
+                            <span class="tech-tag">E-commerce</span>
+                            <span class="tech-tag">Food Industry</span>
+                            <span class="tech-tag">Custom Orders</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="vintage.cakes.html" class="project-link" target="_blank">
                                 <i class="fas fa-external-link-alt"></i> View Live
                             </a>
                         </div>
@@ -954,6 +1247,32 @@
                             </div>
                         </div>
                     </article>
+
+                    <!-- Elite Properties -->
+                    <article class="real-estate-card">
+                        <div class="real-estate-preview">
+                            <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?ixlib=rb-4.0.3&auto=format&fit=crop&w=2075&q=80" alt="Elite Properties">
+                        </div>
+                        <div class="project-content">
+                            <div class="project-category">Ultra-Luxury</div>
+                            <h3 class="project-title">Elite Properties</h3>
+                            <p class="project-description">
+                                Ultra-premium real estate platform featuring exclusive listings, 
+                                architectural visualizations, investment analysis tools, and 
+                                private client portals for high-net-worth individuals.
+                            </p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Architectural Visualization</span>
+                                <span class="tech-tag">Private Client Portals</span>
+                                <span class="tech-tag">Ultra-Premium</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="elite.html" class="project-link" target="_blank">
+                                    <i class="fas fa-external-link-alt"></i> View Platform
+                                </a>
+                            </div>
+                        </div>
+                    </article>
                 </div>
             </div>
         </section>
@@ -968,7 +1287,7 @@
                         <span class="portfolio">Portfolio Archive</span>
                     </div>
                 </div>
-                <a href="https://mortappsstudios.com" class="footer-cta">
+                <a class="footer-cta" id="footerMainSiteLink">
                     Visit Main Site
                 </a>
             </div>
@@ -1041,6 +1360,84 @@
             });
         }
 
+        // Premium Modal System
+        const premiumModal = document.getElementById('premiumModal');
+        const mainSiteLink = document.getElementById('mainSiteLink');
+        const footerMainSiteLink = document.getElementById('footerMainSiteLink');
+        const closeModalBtn = document.getElementById('closeModalBtn');
+        const registerBtn = document.getElementById('registerBtn');
+
+        // Open modal when clicking Main Site links
+        mainSiteLink.addEventListener('click', openPremiumModal);
+        footerMainSiteLink.addEventListener('click', openPremiumModal);
+
+        // Close modal
+        closeModalBtn.addEventListener('click', closePremiumModal);
+
+        // Close modal when clicking outside
+        premiumModal.addEventListener('click', function(e) {
+            if (e.target === premiumModal) {
+                closePremiumModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && premiumModal.classList.contains('active')) {
+                closePremiumModal();
+            }
+        });
+
+        function openPremiumModal() {
+            document.body.style.overflow = 'hidden';
+            premiumModal.classList.add('active');
+        }
+
+        function closePremiumModal() {
+            document.body.style.overflow = '';
+            premiumModal.classList.remove('active');
+        }
+
+        // Register button functionality
+        registerBtn.addEventListener('click', function() {
+            const subject = 'Premium M.A.S Registration Request';
+            const body = `Dear MortApps Studios Team,
+
+I am writing to express my interest in becoming a premium member of MortApps Studios.
+
+Please find my registration details below:
+
+1. FULL NAME: [Your Full Name]
+2. COMPANY/ORGANIZATION: [Your Company/Organization Name]
+3. POSITION/ROLE: [Your Position/Role]
+4. INDUSTRY: [Your Industry]
+5. CONTACT EMAIL: [Your Email Address]
+6. CONTACT PHONE: [Your Phone Number]
+7. WEBSITE (if applicable): [Your Website]
+
+REASONS FOR INTEREST IN M.A.S PREMIUM MEMBERSHIP:
+- [Briefly describe your interest/needs]
+
+EXPECTED BENEFITS FROM MEMBERSHIP:
+- [List 2-3 expected benefits]
+
+I understand that the MortApps Studios premium membership provides exclusive access to development tools, resources, and direct communication with your team.
+
+I look forward to hearing from you regarding the registration process and membership details.
+
+Best regards,
+
+[Your Name]`;
+
+            const mailtoLink = `mailto:mort@linkagemediahub.co.ke?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+            
+            // Open email client
+            window.open(mailtoLink, '_blank');
+            
+            // Close modal after a brief delay
+            setTimeout(closePremiumModal, 300);
+        });
+
         // Scroll Animations
         function initializeScrollAnimations() {
             const observerOptions = {
@@ -1064,6 +1461,14 @@
                 card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
                 observer.observe(card);
             });
+
+            // Observe real estate cards
+            document.querySelectorAll('.real-estate-card').forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
         }
 
         // Smooth navigation
@@ -1082,6 +1487,67 @@
                 }
             });
         });
+
+        // Mobile menu toggle for small screens
+        function setupMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const navBrand = document.querySelector('.nav-brand');
+            
+            if (window.innerWidth <= 768) {
+                // Create mobile menu button
+                const mobileMenuBtn = document.createElement('button');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                mobileMenuBtn.style.cssText = `
+                    background: transparent;
+                    border: 1px solid rgba(42, 42, 60, 0.5);
+                    color: var(--nebula);
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 8px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    font-size: 1.2rem;
+                `;
+                
+                navBrand.appendChild(mobileMenuBtn);
+                
+                // Toggle menu
+                mobileMenuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+                });
+                
+                // Close menu when clicking outside
+                document.addEventListener('click', function(e) {
+                    if (!navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                        navLinks.style.display = 'none';
+                    }
+                });
+                
+                // Style mobile menu
+                navLinks.style.cssText = `
+                    position: fixed;
+                    top: 80px;
+                    left: 0;
+                    width: 100%;
+                    background: rgba(5, 5, 5, 0.98);
+                    backdrop-filter: blur(20px);
+                    padding: 2rem;
+                    flex-direction: column;
+                    gap: 1.5rem;
+                    display: none;
+                    z-index: 1001;
+                    border-top: 1px solid rgba(42, 42, 60, 0.3);
+                    border-bottom: 1px solid rgba(42, 42, 60, 0.3);
+                `;
+            }
+        }
+
+        // Initialize mobile menu
+        setupMobileMenu();
+        window.addEventListener('resize', setupMobileMenu);
     </script>
 </body>
 </html>
